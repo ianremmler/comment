@@ -1,5 +1,5 @@
 function! GetCommentString ()
-  if &ft =~ '^\(c\|cpp\|java\|go\)$'
+  if &ft =~ '^\(c\|cpp\|java\|go\|javascript\)$'
     return '\/\/'
   elseif &ft =~ '^\(vim\)$'
     return '"'
