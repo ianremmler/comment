@@ -12,10 +12,10 @@ endfunction
 
 function! Comment () range
   exec a:firstline . ',' . a:lastline . 'yank'
-  exec 'silent ' . a:firstline . ',' . a:lastline . 's/^/' . GetCommentString () . ' /'
+  exec 'silent ' . a:firstline . ',' . a:lastline . 's/^\(\s*\)/\1' . GetCommentString () . ' /'
   exec 'normal ' . a:lastline . 'g'
 endfunction
 
 function! UnComment () range
-  exec 'silent ' . a:firstline . ',' . a:lastline . 's/^\s*' . GetCommentString () . ' //e'
+  exec 'silent ' . a:firstline . ',' . a:lastline . 's/^\(\s*\)' . GetCommentString () . ' /\1/e'
 endfunction
