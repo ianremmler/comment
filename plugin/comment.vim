@@ -1,21 +1,23 @@
 function! GetCommentString ()
-  if &ft =~ '^\(c\|cpp\|java\|go\|javascript\)$'
-    return '\/\/'
+  if &ft =~ '^\(c\|cpp\|java\|javascript\)$'
+    return '\/\/ '
+  elseif &ft =~ '^\(go\)$'
+    return '\/\/	'
   elseif &ft =~ '^\(vim\)$'
-    return '"'
+    return '" '
   elseif &ft =~ '^\(lua\)$'
-    return '--'
+    return '-- '
   endif
   " default
-  return '#'
+  return '# '
 endfunction
 
 function! Comment () range
   exec a:firstline . ',' . a:lastline . 'yank'
-  exec 'silent ' . a:firstline . ',' . a:lastline . 's/^\(\s*\)/\1' . GetCommentString () . ' /'
+  exec 'silent ' . a:firstline . ',' . a:lastline . 's/^/' . GetCommentString () . '/'
   exec 'normal ' . a:lastline . 'g'
 endfunction
 
 function! UnComment () range
-  exec 'silent ' . a:firstline . ',' . a:lastline . 's/^\(\s*\)' . GetCommentString () . ' /\1/e'
+  exec 'silent ' . a:firstline . ',' . a:lastline . 's/^' . GetCommentString () . '//e'
 endfunction
